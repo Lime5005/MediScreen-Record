@@ -9,6 +9,6 @@ public interface RecordService {
     List<Record> findByPatientId(Long patientId);
     Record findById(Long id);
     Boolean deleteRecordById(Long id);
-    Record createRecord(Record record);
+    Record createRecord(Long patientId, Record record);
     Record updateRecord(Long id, Record newRecord);
 }

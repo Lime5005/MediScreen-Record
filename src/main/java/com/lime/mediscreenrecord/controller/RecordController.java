@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api")
 public class RecordController {
@@ -25,6 +26,15 @@ public class RecordController {
         return recordService.findAll();
     }
 
+    @GetMapping("/records/patient/{patientId}")
+    public ResponseEntity<List<Record>> getOnePatientRecords(@PathVariable(value = "patientId") Long patientId) throws ResourceNotFoundException {
+        List<Record> recordList = recordService.findByPatientId(patientId);
+        if (recordList.isEmpty()) {
+            throw new ResourceNotFoundException("Record not found with Patient id: " + patientId);
+        }
+        return ResponseEntity.ok(recordList);
+    }
+
     @GetMapping("/records/{id}")
     public ResponseEntity<Record> findRecordById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         Record record = recordService.findById(id);
@@ -32,9 +42,9 @@ public class RecordController {
         return ResponseEntity.ok().body(record);
     }
 
-    @PostMapping("/record/add")
-    public ResponseEntity<Record> createRecord(@Valid @RequestBody Record record) {
-        Record newRecord = recordService.createRecord(record);
+    @PostMapping("/records/patient/{patientId}/add")
+    public ResponseEntity<Record> createRecord(@PathVariable(value = "patientId") Long patientId, @Valid @RequestBody Record record) {
+        Record newRecord = recordService.createRecord(patientId, record);
         return ResponseEntity.ok(newRecord);
     }
 
