@@ -53,6 +53,7 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public Record createRecord(Long patientId, Record record) {
         record.setId(sequenceGeneratorService.generateSequence(Record.SEQUENCE_NAME));
+        if (patientId == null) return null;
         record.setPatientId(patientId);
         return recordRepository.save(record);
     }
@@ -62,6 +63,7 @@ public class RecordServiceImpl implements RecordService {
         Optional<Record> optionalRecord = recordRepository.findById(id);
         if (optionalRecord.isPresent()) {
             Record record = optionalRecord.get();
+            if (newRecord.getPatientId() == null) return null;
             record.setPatientId(newRecord.getPatientId());
             record.setNote(newRecord.getNote());
             final Record updatedRecord = recordRepository.save(record);
