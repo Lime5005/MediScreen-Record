@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -30,11 +31,11 @@ public class RecordController {
     }
 
     @GetMapping("/records/patient/{patientId}")
-    public ResponseEntity<?> getOnePatientRecords(@PathVariable(value = "patientId") Long patientId) {
+    public ResponseEntity<List<Record>> getOnePatientRecords(@PathVariable(value = "patientId") Long patientId) {
         List<Record> recordList = recordService.findByPatientId(patientId);
         if (recordList.isEmpty()) {
             logger.info("Failed to find any Record with PatientId: " + patientId);
-            return new ResponseEntity<>("No data", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
         }
         logger.info("Queried Record(s) with PatientId: " + patientId);
         return ResponseEntity.ok(recordList);
