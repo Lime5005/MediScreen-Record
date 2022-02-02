@@ -50,4 +50,19 @@ public class Record implements Persistable<Long> {
     public boolean isNew() {
         return createdAt == null;
     }
+
+    public Record(Long id, Long patientId, String note, Date createdAt, Date updatedAt) {
+        this.id = id;
+        this.patientId = patientId;
+        this.note = note;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public Record(Long patientId, String note, Date createdAt, Date updatedAt) {
+        this.patientId = patientId;
+        this.note = note;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }
