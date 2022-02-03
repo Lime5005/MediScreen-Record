@@ -84,6 +84,14 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.4</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/config/*</exclude>
+                        <exclude>**/error/*</exclude>
+                        <exclude>**/model/*</exclude>
+                        <exclude>**/exception/*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
