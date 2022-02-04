@@ -34,8 +34,8 @@ public class RecordController {
     public ResponseEntity<List<Record>> getOnePatientRecords(@PathVariable(value = "patientId") Long patientId) {
         List<Record> recordList = recordService.findByPatientId(patientId);
         if (recordList.isEmpty()) {
-            logger.info("Failed to find any Record with PatientId: " + patientId);
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
+            logger.error("Failed to find any Record with PatientId: " + patientId);
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
         }
         logger.info("Queried Record(s) with PatientId: " + patientId);
         return ResponseEntity.ok(recordList);
