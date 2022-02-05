@@ -64,7 +64,7 @@ public class RecordControllerTest {
     public void test_Get_Null_Records_By_PatientId_Should_Return_OK() throws Exception {
         when(recordServiceMock.findByPatientId(400L)).thenReturn(new ArrayList<>());
         mockMvc.perform(get("/api/records/patient/400")
-        ).andExpect(status().isNoContent());
+        ).andExpect(status().isBadRequest());
     }
 
     @Test
