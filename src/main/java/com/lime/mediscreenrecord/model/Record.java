@@ -36,7 +36,7 @@ public class Record implements Persistable<Long> {
     private Date updatedAt;
 
     @PrePersist
-    void createdA() {
+    void createdAt() {
         this.createdAt  = (this.createdAt == null) ? new Date() : this.createdAt;
     }
 
